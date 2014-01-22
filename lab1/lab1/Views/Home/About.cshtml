@@ -1,0 +1,60 @@
+﻿@model lab1.Controllers.Transcript
+@{
+    ViewBag.Title = "About";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+    <h2>@ViewBag.Message</h2>
+</hgroup>
+
+<article>
+    <p>
+        @Model.student.GivenNames @Model.student.LastName
+    </p>
+    <table>
+        <tr><td>Course Code</td><td>Grade</td></tr>
+        @{
+            double totalGPA = 0;
+            foreach (var grade in Model.Grades)
+            {
+                <tr><td>@grade.Code</td> <td>@grade.LetterGrade</td></tr>
+
+                switch (@grade.LetterGrade)
+                {
+                    case "D":
+                        totalGPA += 1;
+                        break;
+                    case "C":
+                        totalGPA += 2;
+                        break;
+                    case "B":
+                        totalGPA += 3;
+                        break;
+                    case "A":
+                        totalGPA += 4;
+                        break;
+                }
+            }
+            totalGPA = totalGPA / @Model.Grades.Count;
+            @Model.GPA = totalGPA;
+        }
+    </table>
+
+    <p>
+        Current GPA: @Model.GPA.ToString("#.##")
+    </p>
+
+</article>
+
+<aside>
+    <h3>Aside Title</h3>
+    <p>
+        Use this area to provide additional information.
+    </p>
+    <ul>
+        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+        <li>@Html.ActionLink("About", "About", "Home")</li>
+        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+    </ul>
+</aside>
